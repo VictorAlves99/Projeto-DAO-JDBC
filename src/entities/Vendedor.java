@@ -20,8 +20,15 @@ public class Vendedor implements Serializable{
 	}	
 
 	public Vendedor(int id, String nome, String email, Date birthDate, double baseSalary, Departamento departamento) {
-		super();
 		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.birthDate = birthDate;
+		this.baseSalary = baseSalary;
+		this.departamento = departamento;
+	}
+
+	public Vendedor(String nome, String email, Date birthDate, double baseSalary, Departamento departamento) {
 		this.nome = nome;
 		this.email = email;
 		this.birthDate = birthDate;

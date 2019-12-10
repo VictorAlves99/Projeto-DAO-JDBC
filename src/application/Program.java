@@ -1,5 +1,6 @@
 package application;
 
+import java.util.Date;
 import java.util.List;
 
 import entities.Departamento;
@@ -24,7 +25,8 @@ public class Program {
 		System.out.println("===================================================== Teste 2: FindByDepartamento vendedor ======================================================");
 		System.out.println();
 		
-		List<Vendedor> vendedores = vendedorDAO.findByDepartamento(new Departamento(2,null));
+		Departamento departamento = new Departamento(2,null);
+		List<Vendedor> vendedores = vendedorDAO.findByDepartamento(departamento);
 		vendedores.forEach(System.out::println);
 
 		System.out.println();
@@ -34,6 +36,15 @@ public class Program {
 		
 		vendedores = vendedorDAO.findAll();
 		vendedores.forEach(System.out::println);
+		
+		System.out.println();
+		
+		System.out.println("=========================================================== Teste 4: Insert vendedor ============================================================");
+		System.out.println();
+		
+		Vendedor novoVend = new Vendedor("Greg", "greg@gmail.com", new Date(), 4000.0, departamento);
+		vendedorDAO.insert(novoVend);
+		System.out.println("Inserido! Novo id = " + novoVend.getId());
 		
 		System.out.println();
 		System.out.println("=================================================================================================================================================");
