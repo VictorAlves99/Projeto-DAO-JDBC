@@ -26,6 +26,14 @@ public class Program {
 		
 		List<Vendedor> vendedores = vendedorDAO.findByDepartamento(new Departamento(2,null));
 		vendedores.forEach(System.out::println);
+
+		System.out.println();
+		
+		System.out.println("========================================================== Teste 3: FindAll vendedor ===========================================================");
+		System.out.println();
+		
+		vendedores = vendedorDAO.findAll();
+		vendedores.forEach(System.out::println);
 		
 		System.out.println();
 		System.out.println("=================================================================================================================================================");
