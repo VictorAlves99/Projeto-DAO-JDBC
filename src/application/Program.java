@@ -47,6 +47,17 @@ public class Program {
 		System.out.println("Inserido! Novo id = " + novoVend.getId());
 		
 		System.out.println();
+		
+		System.out.println("=========================================================== Teste 5: Update vendedor ============================================================");
+		System.out.println();
+		
+		vendedor = vendedorDAO.findById(1);
+		vendedor.setNome("Martin");
+		vendedor.setEmail("martin@gmail.com");
+		vendedorDAO.update(vendedor);
+		System.out.println("Atualizado!");
+		
+		System.out.println();
 		System.out.println("=================================================================================================================================================");
 		
 	}
