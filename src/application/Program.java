@@ -1,5 +1,8 @@
 package application;
 
+import java.util.List;
+
+import entities.Departamento;
 import entities.Vendedor;
 import model.DAO.DAOFactory;
 import model.DAO.VendedorDAO;
@@ -15,6 +18,14 @@ public class Program {
 		
 		Vendedor vendedor = vendedorDAO.findById(3);
 		System.out.println(vendedor);
+		
+		System.out.println();
+		
+		System.out.println("===================================================== Teste 2: FindByDepartamento vendedor ======================================================");
+		System.out.println();
+		
+		List<Vendedor> vendedores = vendedorDAO.findByDepartamento(new Departamento(2,null));
+		vendedores.forEach(System.out::println);
 		
 		System.out.println();
 		System.out.println("=================================================================================================================================================");

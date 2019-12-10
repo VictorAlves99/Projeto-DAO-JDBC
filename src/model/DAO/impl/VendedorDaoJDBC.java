@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import db.DB;
 import db.DbException;
@@ -71,7 +74,7 @@ public class VendedorDaoJDBC implements VendedorDAO {
 	}
 
 	private Vendedor instanciarVendedor(ResultSet rs, Departamento dep) throws SQLException {
-		
+
 		Vendedor vend = new Vendedor();
 		vend.setId(rs.getInt("Id"));
 		vend.setNome(rs.getString("Name"));
@@ -80,22 +83,62 @@ public class VendedorDaoJDBC implements VendedorDAO {
 		vend.setBirthDate(rs.getDate("BirthDate"));
 		vend.setDepartamento(dep);
 		return vend;
-		
+
 	}
 
 	private Departamento instanciarDepartamento(ResultSet rs) throws SQLException {
-		
+
 		Departamento dep = new Departamento();
 		dep.setId(rs.getInt("DepartmentId"));
 		dep.setNome(rs.getString("DepName"));
 		return dep;
-		
+
 	}
 
 	@Override
 	public List<Vendedor> findAll() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Vendedor> findByDepartamento(Departamento dep) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement(
+					"SELECT seller.*,department.Name as DepName " + "FROM seller INNER JOIN department "
+							+ "ON seller.DepartmentId = department.Id " + "WHERE DepartmentId = ? " + "ORDER BY Name");
+
+			st.setInt(1, dep.getId());
+
+			rs = st.executeQuery();
+			
+			List<Vendedor> vendedores = new ArrayList<>();
+			Map<Integer, Departamento> map = new HashMap<>();
+			
+			while (rs.next()) {
+				
+				Departamento departamento = map.get(rs.getInt("DepartmentId"));
+				
+				if(departamento == null) {
+					departamento = instanciarDepartamento(rs);
+					map.put(rs.getInt("DepartmentId"), departamento);
+				}
+						
+				Vendedor vend = instanciarVendedor(rs, departamento);
+				vendedores.add(vend);
+			}
+			return vendedores;
+
+		} catch (SQLException e) {
+
+			throw new DbException(e.getMessage());
+
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
 	}
 
 }
