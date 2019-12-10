@@ -2,6 +2,7 @@ package application;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 import entities.Departamento;
 import entities.Vendedor;
@@ -11,6 +12,7 @@ import model.DAO.VendedorDAO;
 public class Program {
 
 	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
 		
 		VendedorDAO vendedorDAO = DAOFactory.criaVendedorDAO();
 		
@@ -58,8 +60,19 @@ public class Program {
 		System.out.println("Atualizado!");
 		
 		System.out.println();
+		
+		System.out.println("=========================================================== Teste 6: Delete vendedor ============================================================");
+		System.out.println();
+
+		System.out.print("Escolha o id que você deseja excluir: ");
+		int id = sc.nextInt();
+		vendedorDAO.deleteById(id);
+		System.out.println("Deletado!");
+		
+		System.out.println();
 		System.out.println("=================================================================================================================================================");
 		
+		sc.close();
 	}
 	
 }
