@@ -10,9 +10,14 @@ public class Program {
 		
 		VendedorDAO vendedorDAO = DAOFactory.criaVendedorDAO();
 		
+		System.out.println("========================================================== Teste 1: FindById vendedor ===========================================================");
+		System.out.println();
+		
 		Vendedor vendedor = vendedorDAO.findById(3);
-	
 		System.out.println(vendedor);
+		
+		System.out.println();
+		System.out.println("=================================================================================================================================================");
 		
 	}
 	
